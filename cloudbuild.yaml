@@ -1,0 +1,22 @@
+substitutions:
+    _IMAGE_NAME: "ci-cd"
+    _CLOUDRUN_SERVICE_NAME: "ci-cd"
+    _REGION: 'europe-north1'
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+        'build', '-t',
+        'eu-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/${_IMAGE_NAME}:$SHORT_SHA', '.'
+    ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'eu-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/${_IMAGE_NAME}:$SHORT_SHA']
+
+  - name: 'gcr.io/cloud-builder/gcloud'
+    args: [
+        'run', 'deploy', '${_CLOUDRUN_SERVICE_NAME}',
+        '--image', 'eu-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/${_IMAGE_NAME}:$SHORT_SHA',
+        '--region', '${_REGION}',
+        '--platform', 'managed'
+    ]
