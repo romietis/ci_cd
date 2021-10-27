@@ -4,15 +4,15 @@ substitutions:
     _REGION: 'europe-north1'
 
 steps:
-    - name: python
-      entrypoint: pip
-      args: ["install", "-r", "requirements.txt", "--user"]
+  - name: python
+    entrypoint: pip
+    args: ["install", "-r", "requirements.txt", "--user"]
 
-    - name: python
-      entrypoint: python
-      args: ['-m', 'unittest', 'discover', 'tests']
+  - name: python
+    entrypoint: python
+    args: ['-m', 'unittest', 'discover', 'tests']
 
-    - name: 'gcr.io/cloud-builders/docker'
+  - name: 'gcr.io/cloud-builders/docker'
     args: [
         'build', '-t',
         'eu-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/${_IMAGE_NAME}:$SHORT_SHA', '.'
