@@ -10,7 +10,7 @@ steps:
 
   - name: python
     entrypoint: python
-    args: ['-m', 'unittest', 'discover', 'tests']
+    args: ['-m', 'unittest', 'discover', '-s', 'tests']
 
   - name: 'gcr.io/cloud-builders/docker'
     args: [
