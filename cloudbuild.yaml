@@ -1,7 +1,7 @@
 substitutions:
     _IMAGE_NAME: 'ci-cd'
     _CLOUDRUN_SERVICE_NAME: 'ci-cd-service'
-    _REGION: 'europe-north1'
+    _REGION: 'europe-west1'
 
 steps:
   - name: python
