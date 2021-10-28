@@ -34,8 +34,12 @@
 #  secret_data = base64decode(google_service_account_key.google_analytics_integration_sa_key.private_key)
 #}
 
-resource "google_cloudbuild_trigger" "build-trigger" {
-  name = "ci-cd-trigger "
+resource "google_project_service" "run_api" {
+  service = "run.googleapis.com"
+}
+
+resource "google_cloudbuild_trigger" "build_rigger" {
+  name = "ci-cd-trigger-test"
   github {
     owner = "romietis"
     name = "ci_cd"
@@ -44,5 +48,49 @@ resource "google_cloudbuild_trigger" "build-trigger" {
       comment_control = "COMMENTS_DISABLED"
     }
   }
-  filename = "cloudbuild.yaml"
+  filename = "pull-request-build.yaml"
 }
+
+resource "google_cloud_run_service" "run_service_test" {
+  name = "ci-cd-service"
+  location = var.region
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/cloudrun/hello:latest"
+      }
+    }
+  }
+#  traffic {
+#    percent         = 100
+#    latest_revision = true
+#  }
+
+  depends_on = [google_project_service.run_api]
+}
+#
+#resource "google_cloud_run_service_iam_member" "run_all_users" {
+#  service  = google_cloud_run_service.run_service_test.name
+#  location = google_cloud_run_service.run_service_test.location
+#  role     = "roles/run.invoker"
+#  member   = "allUsers"
+#}
+
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers",
+    ]
+  }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+  location    = google_cloud_run_service.run_service_test.location
+  project     = google_cloud_run_service.run_service_test.project
+  service     = google_cloud_run_service.run_service_test.name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
+}
+

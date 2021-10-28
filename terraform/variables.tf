@@ -7,5 +7,5 @@ variable "gcp_project" {
 variable "region" {
     description = "GCP project region"
     type        = string
-    default     = "europe-north1"
+    default     = "europe-west1"
 }
