@@ -3,6 +3,7 @@ README.md
 LICENSE
 .gitignore
 cloudbuild.yaml
+pull-request-build.yaml
 
 *.pyc
 *.pyo
