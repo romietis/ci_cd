@@ -131,9 +131,6 @@ dmypy.json
 # JetBrains IDE
 .idea/
 
-# Local .terraform directories
-**/.terraform/*
-
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -165,3 +162,11 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Terraform init
+**/.terraform/
+**/*.tfstate
+**/*.backup
+**/*.lock.info
+**/*.tfvars
+.terraform.lock.hcl
