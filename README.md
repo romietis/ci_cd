@@ -5,7 +5,7 @@
 
 - [x] Change python:3.8-slim to python:3.8-alpine
 - [x] Add pull_request_template.md
-- [ ] Write propper README.md
+- [ ] Write proper README.md
   - [ ] What is this repo
   - [ ] How to run (terraform/build triggers)
   - [ ] Make it configurable and/or what needs to be configured before running
