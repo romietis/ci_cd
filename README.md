@@ -12,3 +12,4 @@
 - [ ] How to authorize Google Cloud Build application on GitHub.
 - [ ] Actual Flask tests
 - [ ] Most likley will migrate from unittest to pytest
+- [ ] Migrate from Google Container Registry to Artifact Registry
