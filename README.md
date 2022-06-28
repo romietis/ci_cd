@@ -1,5 +1,6 @@
 # CI/CD for deploying Flask on Cloud Run
 
+[![License](https://img.shields.io/github/license/romietis/ci_cd)](https://github.com/romietis/ci_cd/blob/main/LICENSE)
 
 ## To-Do
 
